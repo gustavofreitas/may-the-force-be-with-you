@@ -16,7 +16,7 @@ android {
         targetSdkVersion globalConfiguration.targetSDK
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner globalConfiguration.testDependencies.runner
     }
     buildTypes {
         release {
@@ -27,15 +27,20 @@ android {
 }
 
 dependencies {
+    implementation project(path: ":domain")
+    implementation project(path: ":data")
+
     def dependencies = rootProject.ext.dependencies
     def testDependencies = rootProject.ext.testDependencies
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation dependencies.kotlin
 
     implementation dependencies.appCompat
     implementation dependencies.coreKtx
     implementation dependencies.constraintLayout
+
+
 
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.extJunit

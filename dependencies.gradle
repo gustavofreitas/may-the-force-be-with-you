@@ -5,7 +5,7 @@ ext {
     buildTools = '3.5.1'
     buildToolsVersion = "29.0.2"
 
-    kotlin_version = '1.3.61'
+    kotlinVersion = '1.3.61'
 
     appCompatVersion = '1.1.0'
     coreKtxVersion ='1.2.0'
@@ -20,6 +20,7 @@ ext {
     runnerVersion='1.1.1'
 
     dependencies = [
+            kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
             appCompat: "androidx.appcompat:appcompat:$appCompatVersion",
             coreKtx: "androidx.core:core-ktx:$coreKtxVersion",
 
