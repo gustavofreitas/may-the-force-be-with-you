@@ -4,12 +4,14 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
 
     def globalConfiguration = rootProject.ext
 
-    compileSdkVersion globalConfiguration.compileSDK
-    buildToolsVersion globalConfiguration.buildToolsVersion
+    compileSdkVersion targetSDK
+    buildToolsVersion buildToolsVersion
     defaultConfig {
         applicationId "br.com.example.maytheforcebewith_gustavo"
         minSdkVersion globalConfiguration.minSDK
@@ -24,10 +26,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    implementation project(path: ":domain")
     implementation project(path: ":data")
 
     def dependencies = rootProject.ext.dependencies
@@ -36,13 +41,26 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation dependencies.kotlin
 
+    implementation dependencies.material
+
     implementation dependencies.appCompat
     implementation dependencies.coreKtx
     implementation dependencies.constraintLayout
 
+    implementation dependencies.navigationFragment
+    implementation dependencies.navigationUi
 
+    implementation dependencies.legacy
+    implementation dependencies.lifecycleExtensions
+    implementation dependencies.lifecycleViewModel
+
+    implementation dependencies.paging
+
+    implementation dependencies.rxAndroid
+    implementation dependencies.rxJava
 
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.extJunit
     androidTestImplementation testDependencies.espresso
+
 }

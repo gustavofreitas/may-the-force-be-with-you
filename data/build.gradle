@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
     compileSdkVersion globalConfiguration["compileSDK"]
@@ -10,7 +11,7 @@ android {
         targetSdkVersion globalConfiguration["targetSDK"]
     }
 
-    compileOptions{
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -20,8 +21,24 @@ dependencies {
 
     def dependencies = rootProject.ext.dependencies
 
-    implementation project(":domain")
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation dependencies.kotlin
+
+    implementation dependencies.okHttp
+    implementation dependencies.gson
+    implementation dependencies.retrofit
+    implementation dependencies.retrofitGsonConverter
+    implementation dependencies.retrofitRxAdapter
+
+    implementation dependencies.rxAndroid
+
+    implementation dependencies.paging
+
+    implementation dependencies.room
+    implementation dependencies.roomRxJava
+    implementation dependencies.roomKtx
+    kapt dependencies.roomCompiler
+
+    implementation dependencies.koin
+
 }

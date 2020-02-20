@@ -7,32 +7,86 @@ ext {
 
     kotlinVersion = '1.3.61'
 
+    rxJavaVersion = '2.2.17'
+    rxKotlinVersion = '2.4.0'
+    rxAndroidVersion = '2.0.2'
+
     appCompatVersion = '1.1.0'
-    coreKtxVersion ='1.2.0'
+    coreKtxVersion = '1.2.0'
 
-    constraintLayoutVersion='1.1.3'
+    materialVersion = '1.0.0'
 
+    roomVersion = '2.2.3'
 
+    constraintLayoutVersion = '1.1.3'
 
-    junitVersion='4.13'
-    extJunitVersion='1.1.1'
-    espressoVersion='3.2.0'
-    runnerVersion='1.1.1'
+    lifecycleVersion = '2.2.0'
+
+    navigationVersion = '2.2.1'
+
+    pagingVersion = '2.1.0'
+
+    koinVersion = '2.0.1'
+
+    okHttpVersion = '4.3.1'
+
+    gsonVersion = '2.8.6'
+
+    retrofitVersion = '2.7.1'
+
+    //tests
+    junitVersion = '4.13'
+    extJunitVersion = '1.1.1'
+    espressoVersion = '3.2.0'
+    runnerVersion = '1.1.1'
 
     dependencies = [
-            kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
-            appCompat: "androidx.appcompat:appcompat:$appCompatVersion",
-            coreKtx: "androidx.core:core-ktx:$coreKtxVersion",
+            kotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+            appCompat            : "androidx.appcompat:appcompat:$appCompatVersion",
+            coreKtx              : "androidx.core:core-ktx:$coreKtxVersion",
+            legacy               : "androidx.legacy:legacy-support-v4:1.0.0",
 
-            constraintLayout:"androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+            rxAndroid            : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+            rxJava               : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
+            rxKotlin             : "io.reactivex.rxjava2:rxkotlin:​$rxKotlinVersion",
+
+
+            material             : "com.google.android.material:material:$materialVersion",
+
+            room                 : "androidx.room:room-runtime:$roomVersion",
+            roomKtx              : "androidx.room:room-ktx:$roomVersion",
+            roomRxJava           : "androidx.room:room-rxjava2:$roomVersion",
+            roomCompiler         : "androidx.room:room-compiler:$roomVersion",
+
+            constraintLayout     : "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
+
+            lifecycleExtensions  : "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion",
+            lifecycleViewModel   : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion",
+            livedata             : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion",
+
+            navigationFragment   : "androidx.navigation:navigation-fragment-ktx:$navigationVersion",
+            navigationUi         : "androidx.navigation:navigation-ui-ktx:$navigationVersion",
+
+            koin                 : "org.koin:koin-android:$koinVersion",
+            koinViewModel        : "org.koin:koin-androidx-viewmodel:$koinVersion",
+
+            okHttp               : "com.squareup.okhttp3:okhttp:$okHttpVersion",
+
+            gson                 : "com.google.code.gson:gson:$gsonVersion",
+
+            retrofit             : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            retrofitRxAdapter    : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+
+            paging               : "androidx.paging:paging-runtime:$pagingVersion"
 
     ]
 
     testDependencies = [
-            junit:"junit:junit:$junitVersion",
-            extJunit:"androidx.test.ext:junit:$extJunitVersion",
-            espresso:"androidx.test.espresso:espresso-core:$espressoVersion",
-            runner:"androidx.test.runner:$runnerVersion"
+            junit   : "junit:junit:$junitVersion",
+            extJunit: "androidx.test.ext:junit:$extJunitVersion",
+            espresso: "androidx.test.espresso:espresso-core:$espressoVersion",
+            runner  : "androidx.test.runner:$runnerVersion"
 
     ]
 }
