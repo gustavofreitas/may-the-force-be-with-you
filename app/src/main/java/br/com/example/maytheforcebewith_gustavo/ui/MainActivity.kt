@@ -1,7 +1,8 @@
-package br.com.example.maytheforcebewith_gustavo
+package br.com.example.maytheforcebewith_gustavo.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import br.com.example.maytheforcebewith_gustavo.R
 
 class MainActivity : AppCompatActivity() {
 

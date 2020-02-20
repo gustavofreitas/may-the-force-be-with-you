@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/peopleListFragment">
+
+    <fragment
+        android:id="@+id/peopleListFragment"
+        android:name="br.com.example.maytheforcebewith_gustavo.ui.fragment.people.PeopleListFragment"
+        android:label="people_list_fragment"
+        tools:layout="@layout/people_list_fragment" >
+        <action
+            android:id="@+id/action_peopleListFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="br.com.example.maytheforcebewith_gustavo.ui.fragment.details.DetailsFragment"
+        android:label="details_fragment"
+        tools:layout="@layout/details_fragment" />
+</navigation>
