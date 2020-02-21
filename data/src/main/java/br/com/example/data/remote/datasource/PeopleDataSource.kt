@@ -31,11 +31,13 @@ class PeopleDataSource(
                         updateState(State.DONE)
                         callback.onResult(
                             response.results,
+                            0,
+                            response.count,
                             null,
                             2
                         )
                     },
-                    { error ->
+                    {
                         updateState(State.ERROR)
                         setRetry(Action { loadInitial(params, callback) })
                     }
