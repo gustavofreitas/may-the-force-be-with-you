@@ -59,6 +59,9 @@ dependencies {
     implementation dependencies.rxAndroid
     implementation dependencies.rxJava
 
+    implementation dependencies.koin
+    implementation dependencies.koinViewModel
+
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.extJunit
     androidTestImplementation testDependencies.espresso
