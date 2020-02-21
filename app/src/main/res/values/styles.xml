@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextAppearance.Placeholder" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">#656572</item>
+        <item name="android:layout_gravity">right|center_vertical</item>
+        <item name="android:layout_weight">9</item>
+    </style>
+    
+    <style name="ImageButton.Favorite" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">end|center_vertical</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>

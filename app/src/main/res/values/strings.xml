@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MayTheForceBeWith_Gustavo</string>
+    <string name="placeholderText">Character Name</string>
 </resources>

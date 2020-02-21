@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusable="true"
-    android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    style="@style/Widget.MaterialComponents.CardView"
+    android:layout_marginLeft="@dimen/mtrl_card_spacing"
+    android:layout_marginTop="@dimen/mtrl_card_spacing"
+    android:layout_marginRight="@dimen/mtrl_card_spacing" >
 
-    <TextView
-        android:id="@+id/tvName"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical"
-        android:layout_margin="8dp"
-        android:layout_weight="9"
-        android:text="TextView" />
+        android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/ibFavorite"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|center_vertical"
-        android:layout_weight="1"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
-        android:background="@android:color/transparent"
-        app:srcCompat="@android:drawable/btn_star_big_off" />
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/TextAppearance.Placeholder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="9"
+            android:text="@string/placeholderText" />
 
-</LinearLayout>
+        <ImageButton
+            android:id="@+id/ibFavorite"
+            style="@style/ImageButton.Favorite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:srcCompat="@android:drawable/btn_star_big_off" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+
