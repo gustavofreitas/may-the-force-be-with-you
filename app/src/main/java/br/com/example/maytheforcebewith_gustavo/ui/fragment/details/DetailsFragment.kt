@@ -5,15 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import br.com.example.domain.entity.People
 
 import br.com.example.maytheforcebewith_gustavo.R
 
 class DetailsFragment : Fragment() {
-
-    companion object {
-        fun newInstance() =
-            DetailsFragment()
-    }
 
     private lateinit var viewModel: DetailsViewModel
 

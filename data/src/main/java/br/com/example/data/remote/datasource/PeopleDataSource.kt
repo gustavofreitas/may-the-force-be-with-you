@@ -2,8 +2,9 @@ package br.com.example.data.remote.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import br.com.example.data.remote.api.PeopleApi
-import br.com.example.data.remote.model.PeoplePayload
+import br.com.example.data.remote.api.StarWarsApi
+import br.com.example.data.remote.mapper.PeoplePayloadMapper
+import br.com.example.domain.entity.People
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -12,25 +13,27 @@ import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 
 class PeopleDataSource(
-    private val peopleApi: PeopleApi,
+    private val starWarsApi: StarWarsApi,
     private val compositeDisposable: CompositeDisposable
-) : PageKeyedDataSource<Int, PeoplePayload>() {
+) : PageKeyedDataSource<Int, People>() {
 
     var state: MutableLiveData<State> = MutableLiveData()
     private var retryCompletable: Completable? = null
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, PeoplePayload>
+        callback: LoadInitialCallback<Int, People>
     ) {
         updateState(State.LOADING)
         compositeDisposable.add(
-            peopleApi.getPeopleList(1, params.requestedLoadSize)
+            starWarsApi.getPeopleList(1, params.requestedLoadSize)
                 .subscribe(
                     { response ->
                         updateState(State.DONE)
                         callback.onResult(
-                            response.results,
+                            response.results.map{
+                                PeoplePayloadMapper.map(it)
+                            },
                             0,
                             response.count,
                             null,
@@ -47,16 +50,18 @@ class PeopleDataSource(
 
     override fun loadAfter(
         params: LoadParams<Int>,
-        callback: LoadCallback<Int, PeoplePayload>
+        callback: LoadCallback<Int, People>
     ) {
         updateState(State.LOADING)
         compositeDisposable.add(
-            peopleApi.getPeopleList(params.key, params.requestedLoadSize)
+            starWarsApi.getPeopleList(params.key, params.requestedLoadSize)
                 .subscribe(
                     { response ->
                         updateState(State.DONE)
                         callback.onResult(
-                            response.results,
+                            response.results.map {
+                                PeoplePayloadMapper.map(it)
+                            },
                             params.key + 1
                         )
                     },
@@ -70,7 +75,7 @@ class PeopleDataSource(
 
     override fun loadBefore(
         params: LoadParams<Int>,
-        callback: LoadCallback<Int, PeoplePayload>
+        callback: LoadCallback<Int, People>
     ) {
     }
 

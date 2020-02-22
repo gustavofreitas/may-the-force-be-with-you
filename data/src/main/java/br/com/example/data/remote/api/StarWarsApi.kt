@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface PeopleApi {
+interface StarWarsApi {
     @GET("people?format=json")
     fun getPeopleList(
         @Query("page") page: Int,
@@ -23,12 +23,12 @@ interface PeopleApi {
     ): Single<PagedRequestPayload<PeoplePayload>>
 
     companion object {
-        fun getApi(): PeopleApi =
+        fun getApi(): StarWarsApi =
             Retrofit.Builder()
                 .baseUrl("https://swapi.co/api/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(PeopleApi::class.java)
+                .create(StarWarsApi::class.java)
     }
 }

@@ -8,7 +8,8 @@ import br.com.example.data.remote.datasource.PeopleDataSource
 import br.com.example.data.remote.datasource.PeopleDataSourceFactory
 import br.com.example.data.remote.datasource.State
 import br.com.example.data.remote.model.PeoplePayload
-import br.com.example.data.remote.repository.PeopleRepository
+import br.com.example.data.repository.PeopleRepository
+import br.com.example.domain.entity.People
 import io.reactivex.disposables.CompositeDisposable
 
 class PeopleListViewModel(
@@ -17,7 +18,7 @@ class PeopleListViewModel(
     private val peopleDataSourceFactory: PeopleDataSourceFactory
 ) : ViewModel() {
 
-    lateinit var peopleList: LiveData<PagedList<PeoplePayload>>
+    lateinit var peopleList: LiveData<PagedList<People>>
 
     fun initPeopleList(){
         peopleList = repository.getPeople()

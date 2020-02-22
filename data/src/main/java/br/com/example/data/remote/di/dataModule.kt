@@ -1,25 +1,34 @@
 package br.com.example.data.remote.di
 
-import androidx.paging.DataSource
 import androidx.paging.PagedList
-import br.com.example.data.remote.api.PeopleApi
+import br.com.example.data.remote.api.FavoriteWebHookService
+import br.com.example.data.remote.api.StarWarsApi
+import br.com.example.data.remote.datasource.FavoriteDataSource
+import br.com.example.data.remote.datasource.FavoriteDataSourceImpl
 import br.com.example.data.remote.datasource.PeopleDataSourceFactory
-import br.com.example.data.remote.model.PeoplePayload
-import br.com.example.data.remote.repository.PeopleRepository
-import br.com.example.data.remote.repository.PeopleRepositoryImpl
+import br.com.example.data.repository.FavoritePeopleRepositoryImpl
+import br.com.example.data.repository.PeopleRepository
+import br.com.example.data.repository.PeopleRepositoryImpl
+import br.com.example.repository.FavoritePeopleRepository
 import org.koin.dsl.module
 
 private const val pageSize = 10
 
 val apiModule = module {
-    single<PeopleApi>{
-        PeopleApi.getApi()
+    single<StarWarsApi>{
+        StarWarsApi.getApi()
+    }
+    single<FavoriteWebHookService> {
+        FavoriteWebHookService.getService()
     }
 }
 
 val dataSourceModule = module {
     single<PeopleDataSourceFactory>{
         PeopleDataSourceFactory(get(), get())
+    }
+    single<FavoriteDataSource>{
+        FavoriteDataSourceImpl(get())
     }
 }
 
@@ -38,6 +47,10 @@ val repositoryModule = module {
             get(),
             get()
         )
+    }
+
+    factory<FavoritePeopleRepository> {
+        FavoritePeopleRepositoryImpl(get())
     }
 }
 

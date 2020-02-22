@@ -4,9 +4,9 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import br.com.example.data.remote.datasource.State
-import br.com.example.data.remote.model.PeoplePayload
+import br.com.example.domain.entity.People
 
-class PeopleListAdapter: PagedListAdapter<PeoplePayload, PeopleViewHolder>(PeopleDiffCallback) {
+class PeopleListAdapter : PagedListAdapter<People, PeopleViewHolder>(PeopleDiffCallback) {
 
 
     private var state = State.LOADING
@@ -20,14 +20,13 @@ class PeopleListAdapter: PagedListAdapter<PeoplePayload, PeopleViewHolder>(Peopl
     }
 
 
-
     companion object {
-        val PeopleDiffCallback = object : DiffUtil.ItemCallback<PeoplePayload>() {
-            override fun areItemsTheSame(oldItem: PeoplePayload, newItem: PeoplePayload): Boolean {
-                return oldItem.url == newItem.url
+        val PeopleDiffCallback = object : DiffUtil.ItemCallback<People>() {
+            override fun areItemsTheSame(oldItem: People, newItem: People): Boolean {
+                return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: PeoplePayload, newItem: PeoplePayload): Boolean {
+            override fun areContentsTheSame(oldItem: People, newItem: People): Boolean {
                 return oldItem == newItem
             }
         }
