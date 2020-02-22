@@ -12,7 +12,18 @@
         tools:layout="@layout/people_list_fragment" >
         <action
             android:id="@+id/action_peopleListFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popUpTo="@id/peopleListFragment"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_fade_exit">
+            <argument
+                android:name="people"
+                android:defaultValue="@null"
+                app:argType="br.com.example.domain.entity.People"
+                app:nullable="true" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
