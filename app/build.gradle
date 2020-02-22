@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
 android {
 
     def globalConfiguration = rootProject.ext
@@ -32,8 +34,13 @@ android {
     }
 }
 
+androidExtensions {
+    experimental = true
+}
+
 dependencies {
     implementation project(path: ":data")
+    implementation project(path: ":domain")
 
     def dependencies = rootProject.ext.dependencies
     def testDependencies = rootProject.ext.testDependencies
