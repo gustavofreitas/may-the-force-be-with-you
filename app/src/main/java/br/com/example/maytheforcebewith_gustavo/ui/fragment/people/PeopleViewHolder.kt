@@ -15,7 +15,7 @@ import br.com.example.maytheforcebewith_gustavo.R
 import kotlinx.android.synthetic.main.people_list_item.view.*
 
 
-class PeopleViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+class PeopleViewHolder(private val view: View, private val saveFavorite: (People) -> Unit) : RecyclerView.ViewHolder(view) {
 
     private var isFavorite = false
 
@@ -93,6 +93,7 @@ class PeopleViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
             setOnClickListener {
                 isFavorite = !isFavorite
                 setImageDrawable(view.context.getDrawable(getDrawableFavoriteOnOff()))
+                saveFavorite(people)
             }
         }
     }
@@ -102,10 +103,10 @@ class PeopleViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         else android.R.drawable.btn_star_big_off
 
     companion object {
-        fun create(parent: ViewGroup): PeopleViewHolder {
+        fun create(parent: ViewGroup, saveFavorite: (People) -> Unit): PeopleViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.people_list_item, parent, false)
-            return PeopleViewHolder(view)
+            return PeopleViewHolder(view, saveFavorite)
         }
     }
 }

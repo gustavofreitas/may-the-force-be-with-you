@@ -41,4 +41,6 @@ dependencies {
 
     implementation dependencies.koin
 
+    implementation dependencies.stetho
+
 }

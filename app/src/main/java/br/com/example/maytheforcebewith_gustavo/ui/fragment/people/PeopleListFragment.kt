@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.example.data.remote.datasource.State
+import br.com.example.domain.entity.People
 
 import br.com.example.maytheforcebewith_gustavo.R
 import kotlinx.android.synthetic.main.people_list_fragment.*
@@ -19,7 +20,9 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class PeopleListFragment : Fragment() {
 
-    private lateinit var viewModel: PeopleListViewModel
+    private val viewModel: PeopleListViewModel by lazy {
+        getViewModel<PeopleListViewModel>()
+    }
 
     private lateinit var peopleListAdapter: PeopleListAdapter
 
@@ -33,19 +36,13 @@ class PeopleListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        try{
-            viewModel = getViewModel<PeopleListViewModel>()
-        } catch (e: Throwable){
-            Log.e("View Model", e.stackTrace.toString())
-        }
-
         viewModel.initPeopleList()
         initAdapter(view)
         initState()
     }
 
     private fun initAdapter(view: View) {
-        peopleListAdapter = PeopleListAdapter()
+        peopleListAdapter = PeopleListAdapter(::saveFavorite)
         view.rvPeopleList.apply {
             layoutManager = LinearLayoutManager(
                 this.context,
@@ -71,6 +68,10 @@ class PeopleListFragment : Fragment() {
                 peopleListAdapter.setState(state ?: State.DONE)
             }
         })
+    }
+
+    private fun saveFavorite(people: People){
+        viewModel.saveFavorite(people)
     }
 
     companion object {

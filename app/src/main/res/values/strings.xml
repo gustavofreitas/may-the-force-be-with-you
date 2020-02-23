@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">MayTheForceBeWith_Gustavo</string>
     <string name="placeholderText">Character Name</string>
+
+    <string name="label_height">Height</string>
+    <string name="label_mass">Mass</string>
+    <string name="label_hair_color">Hair Color</string>
+    <string name="label_skin_color">Skin Color</string>
+    <string name="label_gender">Gender</string>
 </resources>

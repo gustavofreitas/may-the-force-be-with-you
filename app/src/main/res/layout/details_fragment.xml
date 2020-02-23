@@ -1,13 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.details.DetailsFragment">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/tvDetailsTitle"
+                style="@style/TextAppearance.MaterialComponents.Headline2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/black"
+                android:paddingStart="8dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="32dp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Luke Skywalker" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="@android:color/black"
+                app:layout_constraintEnd_toEndOf="@id/tvDetailsTitle"
+                app:layout_constraintStart_toStartOf="@id/tvDetailsTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvDetailsTitle" />
+
+            <androidx.cardview.widget.CardView
+                style="@style/Widget.MaterialComponents.CardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                app:cardElevation="2dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDetailsTitle"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    android:background="@android:color/transparent"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvDetailsSubtitle"
+                        style="@style/TextAppearance.MaterialComponents.Headline5"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Details"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/divisor"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@android:color/darker_gray"
+                        android:layout_marginTop="8dp"
+                        android:padding="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvDetailsSubtitle" />
+
+                    <br.com.example.maytheforcebewith_gustavo.ui.fragment.details.DetailsItem
+                        android:id="@+id/itemHeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:labelText="@string/label_height"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divisor" />
+
+                    <br.com.example.maytheforcebewith_gustavo.ui.fragment.details.DetailsItem
+                        android:id="@+id/itemMass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:labelText="@string/label_mass"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/itemHeight" />
+
+                    <br.com.example.maytheforcebewith_gustavo.ui.fragment.details.DetailsItem
+                        android:id="@+id/itemHairColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:labelText="@string/label_hair_color"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/itemMass" />
+
+                    <br.com.example.maytheforcebewith_gustavo.ui.fragment.details.DetailsItem
+                        android:id="@+id/itemSkinColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:labelText="@string/label_hair_color"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/itemHairColor" />
+
+                    <br.com.example.maytheforcebewith_gustavo.ui.fragment.details.DetailsItem
+                        android:id="@+id/itemGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:labelText="@string/label_gender"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/itemSkinColor" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 
 </FrameLayout>

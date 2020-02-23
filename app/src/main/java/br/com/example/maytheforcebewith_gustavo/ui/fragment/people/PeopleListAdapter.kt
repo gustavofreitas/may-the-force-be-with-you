@@ -6,13 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import br.com.example.data.remote.datasource.State
 import br.com.example.domain.entity.People
 
-class PeopleListAdapter : PagedListAdapter<People, PeopleViewHolder>(PeopleDiffCallback) {
+class PeopleListAdapter(
+    private val saveFavorite: (People) -> Unit
+) : PagedListAdapter<People, PeopleViewHolder>(PeopleDiffCallback) {
 
 
     private var state = State.LOADING
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeopleViewHolder {
-        return PeopleViewHolder.create(parent)
+        return PeopleViewHolder.create(parent, saveFavorite)
     }
 
     override fun onBindViewHolder(holder: PeopleViewHolder, position: Int) {

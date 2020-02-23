@@ -48,8 +48,7 @@ ext {
 
             rxAndroid            : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
             rxJava               : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
-            rxKotlin             : "io.reactivex.rxjava2:rxkotlin:​$rxKotlinVersion",
-
+            rxKotlin             : "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion",
 
             material             : "com.google.android.material:material:$materialVersion",
 
@@ -78,7 +77,9 @@ ext {
             retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             retrofitRxAdapter    : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
 
-            paging               : "androidx.paging:paging-runtime:$pagingVersion"
+            paging               : "androidx.paging:paging-runtime:$pagingVersion",
+
+            stetho: "com.facebook.stetho:stetho-okhttp3:1.5.1"
 
     ]
 

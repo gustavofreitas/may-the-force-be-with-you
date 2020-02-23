@@ -4,6 +4,7 @@ import android.app.Application
 import br.com.example.data.remote.di.dataModules
 import br.com.example.di.domainModule
 import br.com.example.maytheforcebewith_gustavo.di.appModule
+import com.facebook.stetho.Stetho
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -16,6 +17,6 @@ class MayTheForceBeWithYou: Application() {
             modules(dataModules + appModule + domainModule)
         }
 
-
+        Stetho.initializeWithDefaults(this)
     }
 }

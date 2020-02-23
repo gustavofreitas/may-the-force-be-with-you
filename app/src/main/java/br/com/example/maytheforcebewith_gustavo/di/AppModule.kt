@@ -16,6 +16,7 @@ val uiModule = module {
         PeopleListViewModel(
             get(),
             get(),
+            get(),
             get()
         )
     }

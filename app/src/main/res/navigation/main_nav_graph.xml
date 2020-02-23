@@ -18,16 +18,18 @@
             app:popUpTo="@id/peopleListFragment"
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popExitAnim="@anim/fragment_fade_exit">
-            <argument
-                android:name="people"
-                android:defaultValue="@null"
-                app:argType="br.com.example.domain.entity.People"
-                app:nullable="true" />
+
         </action>
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="br.com.example.maytheforcebewith_gustavo.ui.fragment.details.DetailsFragment"
         android:label="details_fragment"
-        tools:layout="@layout/details_fragment" />
+        tools:layout="@layout/details_fragment" >
+        <argument
+            android:name="people"
+            android:defaultValue="@null"
+            app:argType="br.com.example.domain.entity.People"
+            app:nullable="true" />
+    </fragment>
 </navigation>
