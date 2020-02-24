@@ -1,16 +1,17 @@
 package br.com.example.maytheforcebewith_gustavo.ui.fragment.people
 
-
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.com.example.data.remote.datasource.State
+import br.com.example.data.remote.datasource.PeopleDataSourceState
 import br.com.example.domain.entity.People
 
 import br.com.example.maytheforcebewith_gustavo.R
@@ -38,7 +39,14 @@ class PeopleListFragment : Fragment() {
         viewModel.initPeopleList()
         initListeners()
         initAdapter()
+    }
+
+    override fun onResume() {
+        super.onResume()
         initObserves()
+        viewModel.updatePeopleList()
+        etSearch.text?.clear()
+
     }
 
     private fun initListeners() {
@@ -56,9 +64,9 @@ class PeopleListFragment : Fragment() {
     }
 
     private fun initObserves() {
-        viewModel.uiState.observe(viewLifecycleOwner, Observer(::updateUiState))
-        viewModel.getState().observe(viewLifecycleOwner, Observer { state ->
-            viewModel.handleStateChange(state)
+        viewModel.getState().observe(viewLifecycleOwner, Observer(::updateUIState))
+        viewModel.peopleList.observe(viewLifecycleOwner, Observer {
+            peopleListAdapter.submitList(it)
         })
     }
 
@@ -73,35 +81,32 @@ class PeopleListFragment : Fragment() {
             isNestedScrollingEnabled = true
             peopleListAdapter
             adapter = peopleListAdapter
-            viewModel.peopleList.observe(viewLifecycleOwner, Observer {
-                peopleListAdapter.submitList(it)
-            })
+
         }
     }
 
-    private fun updateUiState(state: PeopleListFragmentUIState) {
+    private fun updateUIState(state: PeopleDataSourceState) {
+        toggleLoading(state)
         when (state) {
-            is PeopleListFragmentUIState.Error -> onError(state.error)
-            PeopleListFragmentUIState.Loading -> toggleLoading(true)
-            is PeopleListFragmentUIState.Success -> onSuccess(state.fromSearch)
+            is PeopleDataSourceState.Error -> onError(state.error)
+            is PeopleDataSourceState.Done -> onSuccess()
         }
     }
 
     private fun onError(error: Throwable) {
-        toggleLoading()
+        Log.e("pagination", error.message)
     }
 
-    private fun onSuccess(fromSeach: Boolean) {
-        toggleLoading()
-        if (!viewModel.listIsEmpty()) {
-            peopleListAdapter.setState(State.DONE)
-        }
+    private fun onSuccess() {
+
     }
 
-    private fun toggleLoading(show: Boolean = false) {
+    private fun toggleLoading(state: PeopleDataSourceState) {
         progress_bar.visibility =
-            if (show) View.VISIBLE
-            else View.GONE
+            when {
+                state is PeopleDataSourceState.Loading && !viewModel.listIsEmpty() -> View.VISIBLE
+                else -> View.GONE
+            }
     }
 
     private fun saveFavorite(people: People) {

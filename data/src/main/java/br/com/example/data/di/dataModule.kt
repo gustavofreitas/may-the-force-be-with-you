@@ -6,6 +6,9 @@ import br.com.example.data.remote.api.StarWarsApi
 import br.com.example.data.remote.datasource.FavoriteDataSource
 import br.com.example.data.remote.datasource.FavoriteDataSourceImpl
 import br.com.example.data.remote.datasource.PeopleDataSourceFactory
+import br.com.example.data.remote.di.apiModule
+import br.com.example.data.remote.di.dataSourceModule
+import br.com.example.data.remote.di.remoteModule
 import br.com.example.data.repository.FavoritePeopleRepositoryImpl
 import br.com.example.data.repository.PeopleRepository
 import br.com.example.data.repository.PeopleRepositoryImpl
@@ -14,31 +17,11 @@ import org.koin.dsl.module
 
 private const val pageSize = 10
 
-val apiModule = module {
-    single<StarWarsApi>{
-        StarWarsApi.getApi()
-    }
-    single<FavoriteWebHookService> {
-        FavoriteWebHookService.getService()
-    }
-}
-
-val dataSourceModule = module {
-    single<PeopleDataSourceFactory>{
-        PeopleDataSourceFactory(get(), get())
-    }
-    single<FavoriteDataSource>{
-        FavoriteDataSourceImpl(get())
-    }
-}
-
 val repositoryModule = module {
 
     factory<PagedList.Config> {
         PagedList.Config.Builder()
             .setPageSize(pageSize)
-            .setPrefetchDistance(2)
-            .setInitialLoadSizeHint(pageSize * 2)
             .setEnablePlaceholders(true)
             .build()
     }
@@ -54,4 +37,4 @@ val repositoryModule = module {
     }
 }
 
-val dataModules = listOf(apiModule, dataSourceModule, repositoryModule)
+val dataModules = listOf(repositoryModule) + remoteModule

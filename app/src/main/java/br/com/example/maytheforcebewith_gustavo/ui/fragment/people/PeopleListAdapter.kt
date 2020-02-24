@@ -3,15 +3,12 @@ package br.com.example.maytheforcebewith_gustavo.ui.fragment.people
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import br.com.example.data.remote.datasource.State
+import br.com.example.data.remote.datasource.PeopleDataSourceState
 import br.com.example.domain.entity.People
 
 class PeopleListAdapter(
     private val saveFavorite: (People) -> Unit
 ) : PagedListAdapter<People, PeopleViewHolder>(PeopleDiffCallback) {
-
-
-    private var state = State.LOADING
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeopleViewHolder {
         return PeopleViewHolder.create(parent, saveFavorite)
@@ -32,10 +29,5 @@ class PeopleListAdapter(
                 return oldItem == newItem
             }
         }
-    }
-
-    fun setState(state: State) {
-        this.state = state
-        notifyItemChanged(super.getItemCount())
     }
 }

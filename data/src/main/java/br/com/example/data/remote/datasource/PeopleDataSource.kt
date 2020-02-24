@@ -18,19 +18,19 @@ class PeopleDataSource(
     private val search: String?
 ) : PageKeyedDataSource<Int, People>() {
 
-    var state: MutableLiveData<State> = MutableLiveData()
+    var state: MutableLiveData<PeopleDataSourceState> = MutableLiveData()
     private var retryCompletable: Completable? = null
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, People>
     ) {
-        updateState(State.LOADING)
+        state.toLoading()
         compositeDisposable.add(
             starWarsApi.getPeopleList(1, search)
                 .subscribe(
                     { response ->
-                        updateState(State.DONE)
+                        state.toDone()
                         callback.onResult(
                             response.results.map{
                                 PeoplePayloadMapper.map(it)
@@ -42,8 +42,9 @@ class PeopleDataSource(
                         )
                     },
                     {
-                        updateState(State.ERROR)
-                        setRetry(Action { loadInitial(params, callback) })
+                        if(it.message != "HTTP 404"){
+                        state.toError(it)
+                        setRetry(Action { loadInitial(params, callback) })}
                     }
                 )
         )
@@ -53,12 +54,12 @@ class PeopleDataSource(
         params: LoadParams<Int>,
         callback: LoadCallback<Int, People>
     ) {
-        updateState(State.LOADING)
+        state.toLoading()
         compositeDisposable.add(
             starWarsApi.getPeopleList(params.key, search)
                 .subscribe(
                     { response ->
-                        updateState(State.DONE)
+                        state.toDone()
                         callback.onResult(
                             response.results.map {
                                 PeoplePayloadMapper.map(it)
@@ -67,7 +68,7 @@ class PeopleDataSource(
                         )
                     },
                     {
-                        updateState(State.ERROR)
+                        state.toError(it)
                         setRetry(Action { loadAfter(params, callback) })
                     }
                 )
@@ -78,10 +79,6 @@ class PeopleDataSource(
         params: LoadParams<Int>,
         callback: LoadCallback<Int, People>
     ) {
-    }
-
-    private fun updateState(state: State) {
-        this.state.postValue(state)
     }
 
     fun retry() {
