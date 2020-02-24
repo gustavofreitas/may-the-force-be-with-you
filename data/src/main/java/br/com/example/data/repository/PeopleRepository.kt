@@ -9,4 +9,6 @@ interface PeopleRepository {
     fun getPeople(): LiveData<PagedList<People>>
 
     fun getPeople(search: String?)
+
+    fun clearSearch()
 }

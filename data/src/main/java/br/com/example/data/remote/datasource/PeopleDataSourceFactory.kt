@@ -26,4 +26,8 @@ class PeopleDataSourceFactory(
         peopleDataSourceLiveData.value?.invalidate()
     }
 
+    fun clearSearch(){
+        search = null
+    }
+
 }

@@ -34,7 +34,11 @@ class PeopleListViewModel(
 
     fun updatePeopleList(search: String? = null){
         repository.getPeople(search)
-        fromSearch = true
+        fromSearch = !search.isNullOrEmpty()
+    }
+
+    fun clearSearch(){
+        repository.clearSearch()
     }
 
     fun getState(): LiveData<PeopleDataSourceState> =

@@ -19,4 +19,8 @@ class PeopleRepositoryImpl(
         peopleDataSourceFactory.doSearch(search)
     }
 
+    override fun clearSearch() {
+        peopleDataSourceFactory.clearSearch()
+    }
+
 }

@@ -37,16 +37,16 @@ class PeopleListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.initPeopleList()
-        initListeners()
         initAdapter()
+        initObserves()
+        initListeners()
+
     }
 
-    override fun onResume() {
-        super.onResume()
-        initObserves()
-        viewModel.updatePeopleList()
+    override fun onPause() {
+        super.onPause()
         etSearch.text?.clear()
-
+        viewModel.clearSearch()
     }
 
     private fun initListeners() {
@@ -60,6 +60,7 @@ class PeopleListFragment : Fragment() {
             etSearch.text?.clear()
             etSearch.clearFocus()
             viewModel.updatePeopleList()
+
         }
     }
 
@@ -81,7 +82,6 @@ class PeopleListFragment : Fragment() {
             isNestedScrollingEnabled = true
             peopleListAdapter
             adapter = peopleListAdapter
-
         }
     }
 
@@ -104,7 +104,7 @@ class PeopleListFragment : Fragment() {
     private fun toggleLoading(state: PeopleDataSourceState) {
         progress_bar.visibility =
             when {
-                state is PeopleDataSourceState.Loading && !viewModel.listIsEmpty() -> View.VISIBLE
+                state is PeopleDataSourceState.Loading && (viewModel.listIsEmpty() || viewModel.fromSearch) -> View.VISIBLE
                 else -> View.GONE
             }
     }
