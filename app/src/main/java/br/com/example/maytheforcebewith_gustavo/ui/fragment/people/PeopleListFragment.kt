@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.example.data.remote.datasource.PeopleDataSourceState
 import br.com.example.domain.entity.People
 
 import br.com.example.maytheforcebewith_gustavo.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.people_list_fragment.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -94,7 +94,14 @@ class PeopleListFragment : Fragment() {
     }
 
     private fun onError(error: Throwable) {
-        Log.e("pagination", error.message)
+        Log.e("pagination", error.message ?: "")
+        MaterialAlertDialogBuilder(context)
+            .setTitle("Error")
+            .setMessage(error.message)
+            .setPositiveButton("Retry") { _, _ ->
+                viewModel.retry()
+            }
+            .show()
     }
 
     private fun onSuccess() {

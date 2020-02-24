@@ -2,7 +2,7 @@ package br.com.example.data.repository
 
 import br.com.example.data.remote.datasource.FavoriteDataSource
 import br.com.example.domain.entity.People
-import br.com.example.repository.FavoritePeopleRepository
+import br.com.example.domain.repository.FavoritePeopleRepository
 import io.reactivex.Completable
 
 class FavoritePeopleRepositoryImpl(

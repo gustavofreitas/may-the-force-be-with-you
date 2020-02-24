@@ -1,4 +1,4 @@
-package br.com.example.repository
+package br.com.example.domain.repository
 
 import br.com.example.domain.entity.People
 import io.reactivex.Completable

@@ -10,7 +10,7 @@ import br.com.example.data.remote.datasource.PeopleDataSourceFactory
 import br.com.example.data.remote.datasource.PeopleDataSourceState
 import br.com.example.data.repository.PeopleRepository
 import br.com.example.domain.entity.People
-import br.com.example.usecase.people.SaveFavoriteUseCase
+import br.com.example.domain.usecase.people.SaveFavoriteUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

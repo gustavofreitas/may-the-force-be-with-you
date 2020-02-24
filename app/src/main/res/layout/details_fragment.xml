@@ -110,7 +110,7 @@
                         android:id="@+id/itemSkinColor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:labelText="@string/label_hair_color"
+                        app:labelText="@string/label_skin_color"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/itemHairColor" />
 

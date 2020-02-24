@@ -2,7 +2,6 @@ package br.com.example.domain.entity
 
 import java.io.Serializable
 
-
 data class People (
     val id: Int,
     val name: String,
@@ -17,4 +16,4 @@ data class People (
     val species: Array<Int>,
     val starships: Array<Int>,
     val vehicles: Array<Int>
-):Serializable
+): Serializable

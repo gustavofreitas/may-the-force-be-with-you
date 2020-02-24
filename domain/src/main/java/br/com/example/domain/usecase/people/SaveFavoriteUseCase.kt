@@ -1,4 +1,4 @@
-package br.com.example.usecase.people
+package br.com.example.domain.usecase.people
 
 import br.com.example.domain.entity.People
 import io.reactivex.Completable

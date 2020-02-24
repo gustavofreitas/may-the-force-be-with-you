@@ -9,6 +9,7 @@ import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,7 +21,7 @@ interface StarWarsApi {
     fun getPeopleList(
         @Query("page") page: Int,
         @Query("search") name: String?
-    ): Single<PagedRequestPayload<PeoplePayload>>
+    ): Single<retrofit2.Response<PagedRequestPayload<PeoplePayload>>>
 
     companion object {
         fun getApi(appContext: Context): StarWarsApi =

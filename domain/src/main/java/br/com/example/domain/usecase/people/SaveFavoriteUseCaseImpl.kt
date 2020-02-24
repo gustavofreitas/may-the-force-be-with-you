@@ -1,7 +1,7 @@
-package br.com.example.usecase.people
+package br.com.example.domain.usecase.people
 
 import br.com.example.domain.entity.People
-import br.com.example.repository.FavoritePeopleRepository
+import br.com.example.domain.repository.FavoritePeopleRepository
 
 class SaveFavoriteUseCaseImpl(
     private val reposirory: FavoritePeopleRepository

@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import br.com.example.data.remote.api.StarWarsApi
 import br.com.example.data.remote.mapper.PeoplePayloadMapper
+import br.com.example.data.remote.model.PagedRequestPayload
+import br.com.example.data.remote.model.PeoplePayload
 import br.com.example.domain.entity.People
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,20 +33,28 @@ class PeopleDataSource(
                 .subscribe(
                     { response ->
                         state.toDone()
-                        callback.onResult(
-                            response.results.map{
-                                PeoplePayloadMapper.map(it)
-                            },
-                            0,
-                            response.count,
-                            null,
-                            2
-                        )
+                        response.apply {
+                            if (code() == 200 && body() != null) {
+                                val pagedRequestPayload =
+                                    (body() as PagedRequestPayload<PeoplePayload>)
+
+                                callback.onResult(
+                                    pagedRequestPayload.results.map {
+                                        PeoplePayloadMapper.map(it)
+                                    },
+                                    0,
+                                    pagedRequestPayload.count,
+                                    null,
+                                    2
+                                )
+                            } else {
+                                state.toError(Throwable("${code()} - ${errorBody()?.string()}"))
+                            }
+                        }
                     },
                     {
-                        if(it.message != "HTTP 404"){
                         state.toError(it)
-                        setRetry(Action { loadInitial(params, callback) })}
+                        setRetry(Action { loadInitial(params, callback) })
                     }
                 )
         )
@@ -60,12 +70,22 @@ class PeopleDataSource(
                 .subscribe(
                     { response ->
                         state.toDone()
-                        callback.onResult(
-                            response.results.map {
-                                PeoplePayloadMapper.map(it)
-                            },
-                            params.key + 1
-                        )
+                        response.apply {
+                            if (code() == 200 && body() != null) {
+                                val pagedRequestPayload =
+                                    (body() as PagedRequestPayload<PeoplePayload>)
+
+                                callback.onResult(
+                                    pagedRequestPayload.results.map {
+                                        PeoplePayloadMapper.map(it)
+                                    },
+                                    params.key + 1
+                                )
+                            } else {
+                                if (code() == 404) state.toEnd()
+                                else state.toError(Throwable("${code()} - ${errorBody()?.string()}"))
+                            }
+                        }
                     },
                     {
                         state.toError(it)

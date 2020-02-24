@@ -1,7 +1,7 @@
 package br.com.example.di
 
-import br.com.example.usecase.people.SaveFavoriteUseCase
-import br.com.example.usecase.people.SaveFavoriteUseCaseImpl
+import br.com.example.domain.usecase.people.SaveFavoriteUseCase
+import br.com.example.domain.usecase.people.SaveFavoriteUseCaseImpl
 import org.koin.dsl.module
 
 val useCaseModule = module{
