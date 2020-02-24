@@ -2,11 +2,11 @@ package br.com.example.maytheforcebewith_gustavo.ui.fragment.people
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +15,6 @@ import br.com.example.domain.entity.People
 
 import br.com.example.maytheforcebewith_gustavo.R
 import kotlinx.android.synthetic.main.people_list_fragment.*
-import kotlinx.android.synthetic.main.people_list_fragment.view.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class PeopleListFragment : Fragment() {
@@ -37,13 +36,35 @@ class PeopleListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.initPeopleList()
-        initAdapter(view)
-        initState()
+        initListeners()
+        initAdapter()
+        initObserves()
     }
 
-    private fun initAdapter(view: View) {
+    private fun initListeners() {
+        etSearch.setOnEditorActionListener { editText, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.updatePeopleList(editText.text.toString())
+            }
+            true
+        }
+        ilSearch.setEndIconOnClickListener {
+            etSearch.text?.clear()
+            etSearch.clearFocus()
+            viewModel.updatePeopleList()
+        }
+    }
+
+    private fun initObserves() {
+        viewModel.uiState.observe(viewLifecycleOwner, Observer(::updateUiState))
+        viewModel.getState().observe(viewLifecycleOwner, Observer { state ->
+            viewModel.handleStateChange(state)
+        })
+    }
+
+    private fun initAdapter() {
         peopleListAdapter = PeopleListAdapter(::saveFavorite)
-        view.rvPeopleList.apply {
+        rvPeopleList.apply {
             layoutManager = LinearLayoutManager(
                 this.context,
                 RecyclerView.VERTICAL,
@@ -55,27 +76,36 @@ class PeopleListFragment : Fragment() {
             viewModel.peopleList.observe(viewLifecycleOwner, Observer {
                 peopleListAdapter.submitList(it)
             })
-
-
         }
     }
 
-    private fun initState() {
-        viewModel.getState().observe(viewLifecycleOwner, Observer { state ->
-            progress_bar.visibility =
-                if (viewModel.listIsEmpty() && state == State.LOADING) View.VISIBLE else View.GONE
-            if (!viewModel.listIsEmpty()) {
-                peopleListAdapter.setState(state ?: State.DONE)
-            }
-        })
+    private fun updateUiState(state: PeopleListFragmentUIState) {
+        when (state) {
+            is PeopleListFragmentUIState.Error -> onError(state.error)
+            PeopleListFragmentUIState.Loading -> toggleLoading(true)
+            is PeopleListFragmentUIState.Success -> onSuccess(state.fromSearch)
+        }
     }
 
-    private fun saveFavorite(people: People){
+    private fun onError(error: Throwable) {
+        toggleLoading()
+    }
+
+    private fun onSuccess(fromSeach: Boolean) {
+        toggleLoading()
+        if (!viewModel.listIsEmpty()) {
+            peopleListAdapter.setState(State.DONE)
+        }
+    }
+
+    private fun toggleLoading(show: Boolean = false) {
+        progress_bar.visibility =
+            if (show) View.VISIBLE
+            else View.GONE
+    }
+
+    private fun saveFavorite(people: People) {
         viewModel.saveFavorite(people)
     }
 
-    companion object {
-        fun newInstance() =
-            PeopleListFragment()
-    }
 }

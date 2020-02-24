@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">MayTheForceBeWith_Gustavo</string>
+
     <string name="placeholderText">Character Name</string>
+
+    <string name="hint_search">Search</string>
 
     <string name="label_height">Height</string>
     <string name="label_mass">Mass</string>

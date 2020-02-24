@@ -13,13 +13,7 @@ interface StarWarsApi {
     @GET("people?format=json")
     fun getPeopleList(
         @Query("page") page: Int,
-        @Query("limit") pageSize: Int
-    ): Single<PagedRequestPayload<PeoplePayload>>
-
-    @GET("people?format=json")
-    fun getPeopleByName(
-        @Query("search") name: String,
-        @Query("limit") pageSize: Int = 10
+        @Query("search") name: String?
     ): Single<PagedRequestPayload<PeoplePayload>>
 
     companion object {

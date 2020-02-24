@@ -14,7 +14,7 @@ ext {
     appCompatVersion = '1.1.0'
     coreKtxVersion = '1.2.0'
 
-    materialVersion = '1.0.0'
+    materialVersion = '1.1.0'
 
     roomVersion = '2.2.3'
 
@@ -87,7 +87,8 @@ ext {
             junit   : "junit:junit:$junitVersion",
             extJunit: "androidx.test.ext:junit:$extJunitVersion",
             espresso: "androidx.test.espresso:espresso-core:$espressoVersion",
-            runner  : "androidx.test.runner:$runnerVersion"
+            runner  : "androidx.test.runner:$runnerVersion",
+            mockk: "io.mockk:mockk:1.9.3.kotlin12"
 
     ]
 }

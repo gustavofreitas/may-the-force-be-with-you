@@ -14,7 +14,8 @@ import io.reactivex.schedulers.Schedulers
 
 class PeopleDataSource(
     private val starWarsApi: StarWarsApi,
-    private val compositeDisposable: CompositeDisposable
+    private val compositeDisposable: CompositeDisposable,
+    private val search: String?
 ) : PageKeyedDataSource<Int, People>() {
 
     var state: MutableLiveData<State> = MutableLiveData()
@@ -26,7 +27,7 @@ class PeopleDataSource(
     ) {
         updateState(State.LOADING)
         compositeDisposable.add(
-            starWarsApi.getPeopleList(1, params.requestedLoadSize)
+            starWarsApi.getPeopleList(1, search)
                 .subscribe(
                     { response ->
                         updateState(State.DONE)
@@ -54,7 +55,7 @@ class PeopleDataSource(
     ) {
         updateState(State.LOADING)
         compositeDisposable.add(
-            starWarsApi.getPeopleList(params.key, params.requestedLoadSize)
+            starWarsApi.getPeopleList(params.key, search)
                 .subscribe(
                     { response ->
                         updateState(State.DONE)

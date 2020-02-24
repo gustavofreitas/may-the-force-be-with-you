@@ -2,13 +2,13 @@ package br.com.example.maytheforcebewith_gustavo.ui.fragment.people
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import br.com.example.data.remote.datasource.PeopleDataSource
 import br.com.example.data.remote.datasource.PeopleDataSourceFactory
 import br.com.example.data.remote.datasource.State
-import br.com.example.data.remote.model.PeoplePayload
 import br.com.example.data.repository.PeopleRepository
 import br.com.example.domain.entity.People
 import br.com.example.usecase.people.SaveFavoriteUseCase
@@ -25,8 +25,20 @@ class PeopleListViewModel(
 
     lateinit var peopleList: LiveData<PagedList<People>>
 
+    private val _uiState: MutableLiveData<PeopleListFragmentUIState> = MutableLiveData()
+    val uiState: LiveData<PeopleListFragmentUIState> = _uiState
+
+    var fromSearch: Boolean = false
+        private set
+
     fun initPeopleList() {
         peopleList = repository.getPeople()
+        fromSearch = false
+    }
+
+    fun updatePeopleList(search: String? = null){
+        repository.getPeople(search)
+        fromSearch = true
     }
 
     fun getState(): LiveData<State> =
@@ -34,6 +46,14 @@ class PeopleListViewModel(
             peopleDataSourceFactory.peopleDataSourceLiveData,
             PeopleDataSource::state
         )
+
+    fun handleStateChange(state: State){
+        when(state){
+            State.DONE -> _uiState.toSucess()
+            State.LOADING -> _uiState.toLoading()
+            State.ERROR -> _uiState.toError(Throwable())
+        }
+    }
 
     fun saveFavorite(people: People) {
         compositeDisposable.add(
@@ -44,7 +64,6 @@ class PeopleListViewModel(
                     { Log.v("saveFavorite", "Web hook called successfully") },
                     { error -> Log.e("saveFavorite", error.message) }
                 )
-
         )
     }
 

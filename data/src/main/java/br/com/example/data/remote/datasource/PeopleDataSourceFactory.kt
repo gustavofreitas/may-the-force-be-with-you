@@ -13,10 +13,17 @@ class PeopleDataSourceFactory(
 
     val peopleDataSourceLiveData = MutableLiveData<PeopleDataSource>()
 
+    var search: String? = null
+
     override fun create(): DataSource<Int, People> {
-        val peopleDataSource = PeopleDataSource(starWarsApi, compositeDisposable)
+        val peopleDataSource = PeopleDataSource(starWarsApi, compositeDisposable, search)
         peopleDataSourceLiveData.postValue(peopleDataSource)
         return peopleDataSource
+    }
+
+    fun doSearch(search: String?) {
+        this.search = search
+        peopleDataSourceLiveData.value?.invalidate()
     }
 
 }

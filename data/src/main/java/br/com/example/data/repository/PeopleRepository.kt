@@ -7,4 +7,6 @@ import br.com.example.domain.entity.People
 
 interface PeopleRepository {
     fun getPeople(): LiveData<PagedList<People>>
+
+    fun getPeople(search: String?)
 }

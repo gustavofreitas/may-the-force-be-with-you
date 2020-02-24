@@ -1,7 +1,7 @@
 package br.com.example.maytheforcebewith_gustavo
 
 import android.app.Application
-import br.com.example.data.remote.di.dataModules
+import br.com.example.data.di.dataModules
 import br.com.example.di.domainModule
 import br.com.example.maytheforcebewith_gustavo.di.appModule
 import com.facebook.stetho.Stetho

@@ -75,6 +75,7 @@ dependencies {
     implementation dependencies.stetho
 
     testImplementation testDependencies.junit
+    testImplementation testDependencies.mockk
     androidTestImplementation testDependencies.extJunit
     androidTestImplementation testDependencies.espresso
 

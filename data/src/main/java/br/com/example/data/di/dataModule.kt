@@ -1,4 +1,4 @@
-package br.com.example.data.remote.di
+package br.com.example.data.di
 
 import androidx.paging.PagedList
 import br.com.example.data.remote.api.FavoriteWebHookService

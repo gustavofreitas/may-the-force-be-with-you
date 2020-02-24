@@ -15,4 +15,8 @@ class PeopleRepositoryImpl(
     override fun getPeople(): LiveData<PagedList<People>> =
         LivePagedListBuilder(peopleDataSourceFactory, pagingConfiguration).build()
 
+    override fun getPeople(search: String?) {
+        peopleDataSourceFactory.doSearch(search)
+    }
+
 }
