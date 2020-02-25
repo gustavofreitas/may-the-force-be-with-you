@@ -9,20 +9,16 @@ import org.koin.dsl.module
 
 val apiModule = module {
 
-    factory<Interceptor>(named("cache")) {
+    factory<Interceptor> {
         ApiCacheInterceptor(androidContext())
     }
 
-    factory<Interceptor>(named("mock")) {
-        ApiMockInterceptor(androidContext())
-    }
-
     single(named("apiRemote")) {
-        StarWarsApi.getApi(ApiHttpClient.getClient(androidContext(), get(named("cache"))))
+        StarWarsApi.getApi(ApiHttpClient.getClient(androidContext(), get()))
     }
 
     single(named("apiMock")) {
-        StarWarsApi.getApi(ApiHttpClient.getClient(androidContext(), get(named("mock"))))
+        StarWarsApi.getApi(ApiHttpClient.getClient(androidContext(), ApiMockInterceptor()))
     }
 
     single {

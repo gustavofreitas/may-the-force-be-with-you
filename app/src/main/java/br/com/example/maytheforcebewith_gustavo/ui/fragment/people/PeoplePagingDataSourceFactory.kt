@@ -13,7 +13,7 @@ class PeoplePagingDataSourceFactory(
 
     val peopleDataSourceLiveData = MutableLiveData<PeoplePagingDataSource>()
 
-    var search: String? = null
+    private var search: String? = null
 
     override fun create(): DataSource<Int, People> {
         val peopleDataSource =

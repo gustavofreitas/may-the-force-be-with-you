@@ -5,7 +5,7 @@ import br.com.example.domain.repository.PeopleRepository
 import io.reactivex.Maybe
 
 class GetPaginatedPeopleUseCaseImpl(
-    val repository: PeopleRepository
+    private val repository: PeopleRepository
 ): GetPaginatedPeopleUseCase{
     override fun execute(page: Int, search: String?): Maybe<PeopleWithPagingInfo> =
         repository.getPaginatedPeople(page, search)

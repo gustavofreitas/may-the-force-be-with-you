@@ -12,7 +12,7 @@ class FavoriteDataSourceImpl(
     override fun saveFavorite(people: People): Completable =
         Completable.defer{
             webHookService.postFavorite(people).doOnError {
-                Log.e("data", it.message)
+                Log.e("data", it.message ?: "An error occurred")
             }
 
 

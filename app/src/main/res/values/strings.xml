@@ -10,4 +10,5 @@
     <string name="label_hair_color">Hair Color</string>
     <string name="label_skin_color">Skin Color</string>
     <string name="label_gender">Gender</string>
+    <string name="details">Details</string>
 </resources>

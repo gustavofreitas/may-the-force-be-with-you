@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/black"
                 android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="32dp"
                 android:textColor="@android:color/white"
@@ -67,7 +68,7 @@
                         android:textStyle="bold"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Details"
+                        android:text="@string/details"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 

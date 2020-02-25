@@ -10,5 +10,4 @@ class FavoritePeopleRepositoryImpl(
 ): FavoritePeopleRepository {
     override fun save(people: People): Completable =
         remoteDataSource.saveFavorite(people)
-
 }

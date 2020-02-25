@@ -3,9 +3,7 @@ package br.com.example.data.remote.api
 import br.com.example.data.remote.model.PagedRequestPayload
 import br.com.example.data.remote.model.PeoplePayload
 import io.reactivex.Maybe
-import io.reactivex.Single
 import okhttp3.OkHttpClient
-import org.koin.core.KoinComponent
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

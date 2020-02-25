@@ -11,9 +11,7 @@ object PeoplePayloadMapper {
     fun map(pagedRequestPayload: PagedRequestPayload<PeoplePayload>) =
         PeopleWithPagingInfo(pagedRequestPayload.count, pagedRequestPayload.results.map{map(it)})
 
-    fun map(peoplesPayload: List<PeoplePayload>) = peoplesPayload.map{map(it)}
-
-    fun map(peoplePayload: PeoplePayload): People = People(
+    private fun map(peoplePayload: PeoplePayload): People = People(
         getIdFromUrl(peoplePayload.url),
         peoplePayload.name,
         peoplePayload.height,
@@ -29,7 +27,7 @@ object PeoplePayloadMapper {
         peoplePayload.vehicles.map { getIdFromUrl(it) }.toTypedArray()
     )
 
-    fun getIdFromUrl(url: String): Int{
+    private fun getIdFromUrl(url: String): Int{
         val uri: Uri = Uri.parse(url)
         return uri.pathSegments.last().toInt()
     }

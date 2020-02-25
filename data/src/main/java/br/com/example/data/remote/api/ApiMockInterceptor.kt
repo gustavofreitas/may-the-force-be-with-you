@@ -1,12 +1,10 @@
 package br.com.example.data.remote.api
 
-import android.content.Context
-import br.com.example.data.utils.isNetworkAvailable
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
 
-class ApiMockInterceptor(private val context: Context) : Interceptor {
+class ApiMockInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response =
         chain.proceed(chain.request())

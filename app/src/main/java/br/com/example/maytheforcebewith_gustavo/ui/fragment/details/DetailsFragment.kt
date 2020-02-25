@@ -11,9 +11,7 @@ import kotlinx.android.synthetic.main.details_fragment.*
 
 class DetailsFragment : Fragment() {
 
-    private lateinit var viewModel: DetailsViewModel
-
-    val args: DetailsFragmentArgs  by navArgs()
+    private val args: DetailsFragmentArgs  by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
