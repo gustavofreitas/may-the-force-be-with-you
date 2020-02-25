@@ -10,8 +10,13 @@ import io.reactivex.Maybe
 class PeopleRemoteDataSourceImpl(private val starWarsApi: StarWarsApi) : PeopleRemoteDataSource {
 
     override fun getPeople(page: Int, search: String?): Maybe<PeopleWithPagingInfo> {
-        return starWarsApi.getPeopleList(page, search).map { response ->
-                PeoplePayloadMapper.map(response.body() as PagedRequestPayload<PeoplePayload>)
+        return starWarsApi.getPeopleList(page, search).flatMap { response ->
+            when (response.code()) {
+                200 -> Maybe.just(PeoplePayloadMapper.map(response.body() as PagedRequestPayload<PeoplePayload>))
+                404 -> Maybe.empty<PeopleWithPagingInfo>()
+                else -> Maybe.error(Throwable( "${response.code()} ${response.errorBody().toString()}"))
+            }
+
         }
     }
 

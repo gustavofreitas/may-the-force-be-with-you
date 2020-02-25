@@ -43,6 +43,9 @@ class PeoplePagingDataSource(
                     {
                         state.toError(it)
                         setRetry(Action { loadInitial(params, callback) })
+                    },
+                    {
+                        state.toEnd()
                     }
                 )
         )
@@ -65,6 +68,9 @@ class PeoplePagingDataSource(
                     {
                         state.toError(it)
                         setRetry(Action { loadAfter(params, callback) })
+                    },
+                    {
+                        state.toEnd()
                     }
                 )
         )
