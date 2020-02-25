@@ -79,7 +79,7 @@ ext {
 
             paging               : "androidx.paging:paging-runtime:$pagingVersion",
 
-            stetho: "com.facebook.stetho:stetho-okhttp3:1.5.1"
+            stetho               : "com.facebook.stetho:stetho-okhttp3:1.5.1"
 
     ]
 
@@ -88,8 +88,7 @@ ext {
             extJunit: "androidx.test.ext:junit:$extJunitVersion",
             espresso: "androidx.test.espresso:espresso-core:$espressoVersion",
             runner  : "androidx.test.runner:$runnerVersion",
-            mockk: "io.mockk:mockk:1.9.3.kotlin12"
-
+            mockk   : "io.mockk:mockk:1.9.3.kotlin12"
     ]
 }
 

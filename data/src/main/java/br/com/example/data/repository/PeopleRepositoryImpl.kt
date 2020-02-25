@@ -1,26 +1,16 @@
 package br.com.example.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
-import br.com.example.data.remote.datasource.PeopleDataSourceFactory
-import br.com.example.data.remote.model.PeoplePayload
-import br.com.example.domain.entity.People
+import br.com.example.data.remote.datasource.PeopleRemoteDataSource
+
+import br.com.example.domain.entity.PeopleWithPagingInfo
+import br.com.example.domain.repository.PeopleRepository
+import io.reactivex.Maybe
 
 class PeopleRepositoryImpl(
-    private val peopleDataSourceFactory: PeopleDataSourceFactory,
-    private val pagingConfiguration: PagedList.Config
+    private val remoteDataSource: PeopleRemoteDataSource
 
 ): PeopleRepository {
-    override fun getPeople(): LiveData<PagedList<People>> =
-        LivePagedListBuilder(peopleDataSourceFactory, pagingConfiguration).build()
-
-    override fun getPeople(search: String?) {
-        peopleDataSourceFactory.doSearch(search)
-    }
-
-    override fun clearSearch() {
-        peopleDataSourceFactory.clearSearch()
-    }
+   override fun getPaginatedPeople(page: Int, search: String?): Maybe<PeopleWithPagingInfo> =
+        remoteDataSource.getPeople(page, search)
 
 }

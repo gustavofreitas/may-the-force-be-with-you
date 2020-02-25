@@ -1,12 +1,9 @@
-package br.com.example.data.remote.datasource
+package br.com.example.maytheforcebewith_gustavo.ui.fragment.people
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import br.com.example.data.remote.api.StarWarsApi
-import br.com.example.data.remote.mapper.PeoplePayloadMapper
-import br.com.example.data.remote.model.PagedRequestPayload
-import br.com.example.data.remote.model.PeoplePayload
 import br.com.example.domain.entity.People
+import br.com.example.domain.usecase.GetPaginatedPeopleUseCase
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -14,10 +11,10 @@ import io.reactivex.functions.Action
 
 import io.reactivex.schedulers.Schedulers
 
-class PeopleDataSource(
-    private val starWarsApi: StarWarsApi,
+class PeoplePagingDataSource(
     private val compositeDisposable: CompositeDisposable,
-    private val search: String?
+    private val search: String?,
+    private val useCase: GetPaginatedPeopleUseCase
 ) : PageKeyedDataSource<Int, People>() {
 
     var state: MutableLiveData<PeopleDataSourceState> = MutableLiveData()
@@ -29,27 +26,18 @@ class PeopleDataSource(
     ) {
         state.toLoading()
         compositeDisposable.add(
-            starWarsApi.getPeopleList(1, search)
+            useCase.execute(1, search)
                 .subscribe(
                     { response ->
                         state.toDone()
                         response.apply {
-                            if (code() == 200 && body() != null) {
-                                val pagedRequestPayload =
-                                    (body() as PagedRequestPayload<PeoplePayload>)
-
-                                callback.onResult(
-                                    pagedRequestPayload.results.map {
-                                        PeoplePayloadMapper.map(it)
-                                    },
-                                    0,
-                                    pagedRequestPayload.count,
-                                    null,
-                                    2
-                                )
-                            } else {
-                                state.toError(Throwable("${code()} - ${errorBody()?.string()}"))
-                            }
+                            callback.onResult(
+                                peoples,
+                                0,
+                                total,
+                                null,
+                                2
+                            )
                         }
                     },
                     {
@@ -66,26 +54,13 @@ class PeopleDataSource(
     ) {
         state.toLoading()
         compositeDisposable.add(
-            starWarsApi.getPeopleList(params.key, search)
+            useCase.execute(params.key, search)
                 .subscribe(
                     { response ->
-                        state.toDone()
-                        response.apply {
-                            if (code() == 200 && body() != null) {
-                                val pagedRequestPayload =
-                                    (body() as PagedRequestPayload<PeoplePayload>)
-
-                                callback.onResult(
-                                    pagedRequestPayload.results.map {
-                                        PeoplePayloadMapper.map(it)
-                                    },
-                                    params.key + 1
-                                )
-                            } else {
-                                if (code() == 404) state.toEnd()
-                                else state.toError(Throwable("${code()} - ${errorBody()?.string()}"))
-                            }
-                        }
+                        callback.onResult(
+                            response.peoples,
+                            params.key + 1
+                        )
                     },
                     {
                         state.toError(it)

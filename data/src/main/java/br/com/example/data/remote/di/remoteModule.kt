@@ -1,29 +1,44 @@
 package br.com.example.data.remote.di
 
-import br.com.example.data.remote.api.FavoriteWebHookService
-import br.com.example.data.remote.api.StarWarsApi
-import br.com.example.data.remote.datasource.FavoriteDataSource
-import br.com.example.data.remote.datasource.FavoriteDataSourceImpl
-import br.com.example.data.remote.datasource.PeopleDataSourceFactory
+import br.com.example.data.remote.api.*
+import br.com.example.data.remote.datasource.*
+import okhttp3.Interceptor
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val apiModule = module {
-    single<StarWarsApi>{
-        StarWarsApi.getApi(androidContext())
+
+    factory<Interceptor>(named("cache")) {
+        ApiCacheInterceptor(androidContext())
     }
-    single<FavoriteWebHookService> {
+
+    factory<Interceptor>(named("mock")) {
+        ApiMockInterceptor(androidContext())
+    }
+
+    single(named("apiRemote")) {
+        StarWarsApi.getApi(ApiHttpClient.getClient(androidContext(), get(named("cache"))))
+    }
+
+    single(named("apiMock")) {
+        StarWarsApi.getApi(ApiHttpClient.getClient(androidContext(), get(named("mock"))))
+    }
+
+    single {
         FavoriteWebHookService.getService()
     }
 }
 
-val dataSourceModule = module {
-    single<PeopleDataSourceFactory>{
-        PeopleDataSourceFactory(get(), get())
+
+
+val remoteDataSourceModule = module {
+    single<PeopleRemoteDataSource> {
+        PeopleRemoteDataSourceImpl(get(named("apiRemote")))
     }
-    single<FavoriteDataSource>{
+    single<FavoriteDataSource> {
         FavoriteDataSourceImpl(get())
     }
 }
 
-val remoteModule = listOf(dataSourceModule, apiModule)
+val remoteModule = listOf(apiModule, remoteDataSourceModule)

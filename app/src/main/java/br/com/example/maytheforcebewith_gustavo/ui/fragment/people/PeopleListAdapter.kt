@@ -3,7 +3,6 @@ package br.com.example.maytheforcebewith_gustavo.ui.fragment.people
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import br.com.example.data.remote.datasource.PeopleDataSourceState
 import br.com.example.domain.entity.People
 
 class PeopleListAdapter(

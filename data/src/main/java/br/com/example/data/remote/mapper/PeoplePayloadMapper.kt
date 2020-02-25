@@ -1,10 +1,15 @@
 package br.com.example.data.remote.mapper
 
 import android.net.Uri
+import br.com.example.data.remote.model.PagedRequestPayload
 import br.com.example.data.remote.model.PeoplePayload
 import br.com.example.domain.entity.People
+import br.com.example.domain.entity.PeopleWithPagingInfo
 
 object PeoplePayloadMapper {
+
+    fun map(pagedRequestPayload: PagedRequestPayload<PeoplePayload>) =
+        PeopleWithPagingInfo(pagedRequestPayload.count, pagedRequestPayload.results.map{map(it)})
 
     fun map(peoplesPayload: List<PeoplePayload>) = peoplesPayload.map{map(it)}
 

@@ -1,4 +1,4 @@
-package br.com.example.data.remote.datasource
+package br.com.example.maytheforcebewith_gustavo.ui.fragment.people
 
 import androidx.lifecycle.MutableLiveData
 
@@ -10,7 +10,11 @@ sealed class PeopleDataSourceState {
 }
 
 fun MutableLiveData<PeopleDataSourceState>.toError(error: Throwable) {
-     postValue(PeopleDataSourceState.Error(error))
+     postValue(
+         PeopleDataSourceState.Error(
+             error
+         )
+     )
 }
 
 fun MutableLiveData<PeopleDataSourceState>.toLoading() {

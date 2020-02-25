@@ -10,7 +10,6 @@ import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.com.example.data.remote.datasource.PeopleDataSourceState
 import br.com.example.domain.entity.People
 
 import br.com.example.maytheforcebewith_gustavo.R
