@@ -23,6 +23,10 @@ android {
         testInstrumentationRunner globalConfiguration.testDependencies.runner
     }
     buildTypes {
+
+        debug {
+            testCoverageEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -34,6 +38,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 }
 
@@ -75,7 +85,9 @@ dependencies {
     implementation dependencies.stetho
 
     testImplementation testDependencies.junit
+    testImplementation testDependencies.koinTest
     testImplementation testDependencies.mockk
     androidTestImplementation testDependencies.extJunit
     androidTestImplementation testDependencies.espresso
+    androidTestImplementation testDependencies.kotlinTestJunit
 }

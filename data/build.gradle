@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
-    compileSdkVersion globalConfiguration["compileSDK"]
+    compileSdkVersion targetSDK
 
     defaultConfig {
         minSdkVersion globalConfiguration["minSDK"]
@@ -15,6 +15,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion = buildToolsVersion
 }
 
 dependencies {

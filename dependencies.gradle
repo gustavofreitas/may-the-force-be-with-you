@@ -35,9 +35,9 @@ ext {
     retrofitVersion = '2.7.1'
 
     //tests
-    junitVersion = '4.13'
-    extJunitVersion = '1.1.1'
-    espressoVersion = '3.2.0'
+    junitVersion = '4.12'
+    extJunitVersion = '1.1.0'
+    espressoVersion = '3.1.1'
     runnerVersion = '1.1.1'
 
     dependencies = [
@@ -87,7 +87,9 @@ ext {
             junit   : "junit:junit:$junitVersion",
             extJunit: "androidx.test.ext:junit:$extJunitVersion",
             espresso: "androidx.test.espresso:espresso-core:$espressoVersion",
-            runner  : "androidx.test.runner:$runnerVersion",
+            koinTest: "org.koin:koin-test:2.0.1",
+            kotlinTestJunit: "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion",
+            runner  : "androidx.test:runner:$runnerVersion",
             mockk   : "io.mockk:mockk:1.9.3.kotlin12"
     ]
 }

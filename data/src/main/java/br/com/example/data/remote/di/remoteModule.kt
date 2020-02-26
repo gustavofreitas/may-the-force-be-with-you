@@ -2,6 +2,7 @@ package br.com.example.data.remote.di
 
 import br.com.example.data.remote.api.*
 import br.com.example.data.remote.datasource.*
+import br.com.example.data.remote.datasource.parser.UriToIdParserImpl
 import okhttp3.Interceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
@@ -30,7 +31,7 @@ val apiModule = module {
 
 val remoteDataSourceModule = module {
     single<PeopleRemoteDataSource> {
-        PeopleRemoteDataSourceImpl(get(named("apiRemote")))
+        PeopleRemoteDataSourceImpl(get(named("apiRemote")), UriToIdParserImpl())
     }
     single<FavoriteDataSource> {
         FavoriteDataSourceImpl(get())
