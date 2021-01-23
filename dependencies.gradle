@@ -6,11 +6,7 @@ ext {
     buildToolsVersion = "29.0.2"
 
     kotlinVersion = '1.4.0'
-
-    rxJavaVersion = '2.2.17'
-    rxKotlinVersion = '2.4.0'
-    rxAndroidVersion = '2.0.2'
-
+    
     coroutine = '1.4.2'
 
     appCompatVersion = '1.1.0'
@@ -47,10 +43,6 @@ ext {
             appCompat            : "androidx.appcompat:appcompat:$appCompatVersion",
             coreKtx              : "androidx.core:core-ktx:$coreKtxVersion",
             legacy               : "androidx.legacy:legacy-support-v4:1.0.0",
-
-            rxAndroid            : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
-            rxJava               : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
-            rxKotlin             : "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion",
 
             coroutineCore        : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine",
 
