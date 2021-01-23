@@ -4,16 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import br.com.example.domain.entity.People
 import br.com.example.domain.usecase.SaveFavoriteUseCase
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
 class PeopleListViewModel(
-    private val compositeDisposable: CompositeDisposable,
     private val peoplePagingDataSourceFactory: PeoplePagingDataSourceFactory,
     private val favoriteUseCase: SaveFavoriteUseCase
 ) : ViewModel() {
@@ -28,17 +26,9 @@ class PeopleListViewModel(
         private set
 
     fun initPeopleList() {
-        peopleList = LivePagedListBuilder(peoplePagingDataSourceFactory, pagingConfiguration).build()
+        peopleList =
+            LivePagedListBuilder(peoplePagingDataSourceFactory, pagingConfiguration).build()
         fromSearch = false
-    }
-
-    fun updatePeopleList(search: String? = null){
-        peoplePagingDataSourceFactory.doSearch(search)
-        fromSearch = !search.isNullOrEmpty()
-    }
-
-    fun clearSearch(){
-        peoplePagingDataSourceFactory.clearSearch()
     }
 
     fun getState(): LiveData<PeopleDataSourceState> =
@@ -48,29 +38,17 @@ class PeopleListViewModel(
         )
 
     fun saveFavorite(people: People) {
-        compositeDisposable.add(
-            favoriteUseCase.execute(people)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { Log.v("saveFavorite", "Web hook called successfully") },
-                    { error -> Log.e("saveFavorite", error.message ?: "An error occurred") }
-                )
-        )
-    }
-
-    fun retry() {
-        peoplePagingDataSourceFactory.peopleDataSourceLiveData.value?.retry()
+        viewModelScope.launch {
+            try {
+                favoriteUseCase.execute(people)
+                Log.v("saveFavorite", "Web hook called successfully")
+            } catch (error: Throwable) {
+                Log.e("saveFavorite", error.message ?: "An error occurred")
+            }
+        }
     }
 
     fun listIsEmpty(): Boolean {
         return peopleList.value?.isEmpty() ?: true
     }
-
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.dispose()
-    }
-
-
 }
