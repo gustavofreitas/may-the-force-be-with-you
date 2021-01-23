@@ -25,10 +25,7 @@ val uiModule = module {
 val uiPagingModule = module {
 
     single {
-        PeoplePagingDataSourceFactory(
-            get(),
-            get()
-        )
+        PeoplePagingDataSourceFactory(get())
     }
 }
 

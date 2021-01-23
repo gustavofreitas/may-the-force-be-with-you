@@ -5,11 +5,13 @@ ext {
     buildTools = '3.5.1'
     buildToolsVersion = "29.0.2"
 
-    kotlinVersion = '1.3.61'
+    kotlinVersion = '1.4.0'
 
     rxJavaVersion = '2.2.17'
     rxKotlinVersion = '2.4.0'
     rxAndroidVersion = '2.0.2'
+
+    coroutine = '1.4.2'
 
     appCompatVersion = '1.1.0'
     coreKtxVersion = '1.2.0'
@@ -50,6 +52,8 @@ ext {
             rxJava               : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
             rxKotlin             : "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion",
 
+            coroutineCore        : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine",
+
             material             : "com.google.android.material:material:$materialVersion",
 
             room                 : "androidx.room:room-runtime:$roomVersion",
@@ -84,13 +88,13 @@ ext {
     ]
 
     testDependencies = [
-            junit   : "junit:junit:$junitVersion",
-            extJunit: "androidx.test.ext:junit:$extJunitVersion",
-            espresso: "androidx.test.espresso:espresso-core:$espressoVersion",
-            koinTest: "org.koin:koin-test:2.0.1",
+            junit          : "junit:junit:$junitVersion",
+            extJunit       : "androidx.test.ext:junit:$extJunitVersion",
+            espresso       : "androidx.test.espresso:espresso-core:$espressoVersion",
+            koinTest       : "org.koin:koin-test:2.0.1",
             kotlinTestJunit: "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion",
-            runner  : "androidx.test:runner:$runnerVersion",
-            mockk   : "io.mockk:mockk:1.9.3.kotlin12"
+            runner         : "androidx.test:runner:$runnerVersion",
+            mockk          : "io.mockk:mockk:1.9.3.kotlin12"
     ]
 }
 

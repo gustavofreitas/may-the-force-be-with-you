@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-
     <fragment
         android:id="@+id/navHostFragmentContainer"
         android:name="androidx.navigation.fragment.NavHostFragment"

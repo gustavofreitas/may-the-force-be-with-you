@@ -79,6 +79,8 @@ dependencies {
     implementation dependencies.rxAndroid
     implementation dependencies.rxJava
 
+    implementation dependencies.coroutineCore
+
     implementation dependencies.koin
     implementation dependencies.koinViewModel
 
