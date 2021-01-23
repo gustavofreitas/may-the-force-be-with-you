@@ -21,7 +21,7 @@ interface StarWarsApi {
     companion object {
         fun getApi(okHttpClient: OkHttpClient): StarWarsApi =
             Retrofit.Builder()
-                .baseUrl("https://swapi.co/api/")
+                .baseUrl("https://swapi.dev/api/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
