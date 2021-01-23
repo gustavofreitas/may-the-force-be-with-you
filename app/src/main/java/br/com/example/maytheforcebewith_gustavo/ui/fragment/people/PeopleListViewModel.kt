@@ -28,17 +28,9 @@ class PeopleListViewModel(
         private set
 
     fun initPeopleList() {
-        peopleList = LivePagedListBuilder(peoplePagingDataSourceFactory, pagingConfiguration).build()
+        peopleList =
+            LivePagedListBuilder(peoplePagingDataSourceFactory, pagingConfiguration).build()
         fromSearch = false
-    }
-
-    fun updatePeopleList(search: String? = null){
-        peoplePagingDataSourceFactory.doSearch(search)
-        fromSearch = !search.isNullOrEmpty()
-    }
-
-    fun clearSearch(){
-        peoplePagingDataSourceFactory.clearSearch()
     }
 
     fun getState(): LiveData<PeopleDataSourceState> =
@@ -71,6 +63,5 @@ class PeopleListViewModel(
         super.onCleared()
         compositeDisposable.dispose()
     }
-
 
 }
