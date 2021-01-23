@@ -32,7 +32,7 @@ class PeopleListFragment : Fragment(R.layout.people_list_fragment) {
 
     private fun initObserves() {
         viewModel.getState().observe(viewLifecycleOwner, Observer(::updateUIState))
-        viewModel.peopleList.observe(viewLifecycleOwner, Observer {
+        viewModel.peopleList.observe(viewLifecycleOwner, {
             peopleListAdapter.submitList(it)
         })
     }
@@ -65,9 +65,6 @@ class PeopleListFragment : Fragment(R.layout.people_list_fragment) {
         MaterialAlertDialogBuilder(context)
             .setTitle("Error")
             .setMessage(error.message)
-            .setPositiveButton("Retry") { _, _ ->
-                viewModel.retry()
-            }
             .show()
     }
 
