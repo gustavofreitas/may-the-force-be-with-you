@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MayTheForceBeWith_Gustavo</string>
 
-    <string name="placeholderText">Character Name</string>
+    <string name="placeholderText">Loading…</string>
 
     <string name="hint_search">Search</string>
 
@@ -11,4 +11,5 @@
     <string name="label_skin_color">Skin Color</string>
     <string name="label_gender">Gender</string>
     <string name="details">Details</string>
+    <string name="favorite_image_content_description">Favorite image</string>
 </resources>

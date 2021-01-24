@@ -18,11 +18,18 @@ class PeopleListViewModel(
     private val paginatedPeopleUseCase: GetPaginatedPeopleUseCase
 ) : ViewModel() {
 
-    val peoples: Flow<PagingData<People>> = Pager(PagingConfig(pageSize = 10)) {
-        PeoplePagingSource(paginatedPeopleUseCase)
-    }
-        .flow
-        .cachedIn(viewModelScope)
+    val peoples: Flow<PagingData<People>> =
+        Pager(
+            PagingConfig(
+                pageSize = 10,
+                prefetchDistance = 2,
+                enablePlaceholders = true,
+            )
+        ) {
+            PeoplePagingSource(paginatedPeopleUseCase)
+        }
+            .flow
+            .cachedIn(viewModelScope)
 
     fun saveFavorite(people: People) {
         viewModelScope.launch {

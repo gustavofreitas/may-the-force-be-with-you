@@ -15,7 +15,8 @@ class PeoplePagingSource(
             LoadResult.Page(
                     data = response.peoples,
                     prevKey = if (nextPage == 1) null else nextPage - 1,
-                    nextKey = nextPage + 1
+                    nextKey = nextPage + 1,
+                    itemsAfter = response.total
             )
         } catch (error: Throwable) {
             LoadResult.Error(error)

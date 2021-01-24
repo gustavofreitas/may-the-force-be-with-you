@@ -6,7 +6,7 @@ ext {
     buildToolsVersion = "29.0.2"
 
     kotlinVersion = '1.4.0'
-    
+
     coroutine = '1.4.2'
 
     appCompatVersion = '1.1.0'
@@ -31,6 +31,8 @@ ext {
     gsonVersion = '2.8.6'
 
     retrofitVersion = '2.7.1'
+
+    shimmerVersion = '0.5.0'
 
     //tests
     junitVersion = '4.12'
@@ -74,6 +76,8 @@ ext {
             retrofitRxAdapter    : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
 
             paging               : "androidx.paging:paging-runtime:$pagingVersion",
+
+            shimmer              : "com.facebook.shimmer:shimmer:$shimmerVersion",
 
             stetho               : "com.facebook.stetho:stetho-okhttp3:1.5.1"
 
