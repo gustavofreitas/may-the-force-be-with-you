@@ -32,17 +32,20 @@ class PeopleRemoteDataSourceImpl(
     private fun map(peoplePayload: PeoplePayload): People = People(
         uriToIdParser.parse(peoplePayload.url),
         peoplePayload.name,
-        peoplePayload.height,
-        peoplePayload.mass,
-        peoplePayload.hairColor,
-        peoplePayload.skinColor,
-        peoplePayload.eyeColor,
-        peoplePayload.birthYear,
-        peoplePayload.gender,
+        peoplePayload.height.checkValue("m"),
+        peoplePayload.mass.checkValue("Kg"),
+        peoplePayload.hairColor.checkValue(),
+        peoplePayload.skinColor.checkValue(),
+        peoplePayload.eyeColor.checkValue(),
+        peoplePayload.birthYear.checkValue(),
+        peoplePayload.gender.checkValue(),
         uriToIdParser.parse(peoplePayload.homeworld),
         peoplePayload.species.map { uriToIdParser.parse(it) }.toTypedArray(),
         peoplePayload.starships.map { uriToIdParser.parse(it) }.toTypedArray(),
         peoplePayload.vehicles.map { uriToIdParser.parse(it) }.toTypedArray()
     )
 
+    private fun String.checkValue(suffix: String? = null): String? =
+        if (listOf("n/a", "none").contains(this)) null
+        else suffix?.let { "$this$it" } ?: this
 }

@@ -25,11 +25,18 @@ class DetailsFragment : Fragment() {
 
         args.people?.apply {
             tvDetailsTitle.text = name
-            itemHeight.setValue(height)
-            itemMass.setValue( mass)
-            itemHairColor.setValue(hairColor)
-            itemSkinColor.setValue(skinColor)
-            itemGender.setValue(gender)
+            itemHeight.showIfHasValue(height)
+            itemMass.showIfHasValue(mass)
+            itemHairColor.showIfHasValue(hairColor)
+            itemSkinColor.showIfHasValue(skinColor)
+            itemGender.showIfHasValue(gender)
         }
+    }
+
+    private fun DetailsItem.showIfHasValue(string: String?){
+        visibility = string?.let {
+            setValue(it)
+            View.VISIBLE
+        } ?: View.GONE
     }
 }
