@@ -23,17 +23,19 @@ class PeopleViewHolder(private val view: View, private val saveFavorite: (People
         if (people != null) {
             setUpFilledItem(people)
         } else {
-            setUpPlaceHolderItem()
+            setUpPlaceholderItem()
         }
     }
 
-    private fun setUpPlaceHolderItem() {
+    private fun setUpPlaceholderItem() {
+        view.shimmer_view_container.showShimmer(true)
         setUpPeopleNamePlaceHolder(view.tvName)
-        setUpFavoriteImageButtonPlaceHolder(view.ibFavorite)
+        view.ibFavorite.visibility = View.INVISIBLE
         view.setOnClickListener { }
     }
 
     private fun setUpFilledItem(people: People) {
+        view.shimmer_view_container.hideShimmer()
         setUpPeopleName(view.tvName, people)
         setUpFavoriteImageButton(view.ibFavorite, people)
         setUpNavigation(people)
@@ -90,6 +92,7 @@ class PeopleViewHolder(private val view: View, private val saveFavorite: (People
 
     private fun setUpFavoriteImageButton(ibFavorite: ImageButton, people: People) {
         ibFavorite.apply {
+            visibility = View.VISIBLE
             setOnClickListener {
                 isFavorite = !isFavorite
                 setImageDrawable(view.context.getDrawable(getDrawableFavoriteOnOff()))
