@@ -8,7 +8,6 @@ dependencies {
     implementation dependencies.koin
 
     implementation dependencies.coroutineCore
-
 }
 
 sourceCompatibility = "8"

@@ -30,8 +30,6 @@ dependencies {
     implementation dependencies.retrofit
     implementation dependencies.retrofitGsonConverter
 
-    implementation dependencies.coroutineCore
-
     implementation dependencies.paging
 
     implementation dependencies.koin
