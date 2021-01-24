@@ -1,13 +1,13 @@
 package br.com.example.maytheforcebewith_gustavo.ui.fragment.people
 
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import br.com.example.domain.entity.People
 
 class PeopleListAdapter(
     private val saveFavorite: (People) -> Unit
-) : PagedListAdapter<People, PeopleViewHolder>(PeopleDiffCallback) {
+) : PagingDataAdapter<People, PeopleViewHolder>(PeopleDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeopleViewHolder {
         return PeopleViewHolder.create(parent, saveFavorite)
