@@ -76,6 +76,8 @@ dependencies {
 
     implementation dependencies.paging
 
+    implementation dependencies.shimmer
+
     implementation dependencies.koin
     implementation dependencies.koinViewModel
 
